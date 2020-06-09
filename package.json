@@ -16,5 +16,7 @@
   },
   "author": "",
   "license": "ISC",
+  "scripts": {
   "start": "node app.js"
+}
 }

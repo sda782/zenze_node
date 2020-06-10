@@ -5,6 +5,7 @@ const request = require('request');
 
 const app = express();
 const newimageurl = 'https://drive.google.com/uc?id=';
+
 //  google api
 const readline = require('readline');
 const { google } = require('googleapis');
@@ -79,6 +80,10 @@ function getAccessToken(oAuth2Client, callback) {
 // default options
 app.use(fileUpload());
 app.use(express.static('public'))
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
+});
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html', (err) => {});

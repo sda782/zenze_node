@@ -20,7 +20,7 @@ map.locate({ setView: true, maxZoom: 18 });
 $('.leaflet-control-attribution').toggle();
 
 //get marker location and images : https://raw.githubusercontent.com/sda782/zenze/master/imageindex.json
-$.getJSON('https://drive.google.com/uc?id=1AYch2-Yf0OxRrL0SfCXhKLs9AXp7XZoRcallback=?', (Iindex) => {
+$.getJSON('http://cors-anywhere.herokuapp.com/https://drive.google.com/uc?id=1AYch2-Yf0OxRrL0SfCXhKLs9AXp7XZoR', (Iindex) => {
     Object.keys(Iindex).forEach(function(k) {
         var item = Iindex[k];
         var marker = L.marker([item.coord.latitude, item.coord.longtitude], { icon: UI_locationmarker }).addTo(map);

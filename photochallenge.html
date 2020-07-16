@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Challenge</title>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Mono&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        html,
+        body {
+            height: 100%;
+            width: 100vw;
+            padding: 0;
+            margin: 0;
+            overflow-x: hidden;
+            font-family: 'PT Mono', monospace;
+        }
+        
+        header {
+            min-width: 100vw;
+            max-width: 100vw;
+            min-height: 100px;
+            display: block;
+            background-color: white;
+            text-align: center;
+        }
+        
+        header h2 {
+            margin: 0px;
+            padding: 25px 0px 10px 0px;
+            font-size: 30px;
+            letter-spacing: 5px;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        .row {
+            display: flex;
+        }
+        
+        .column {
+            flex: 30%;
+            padding: 5px 25px 20px 25px;
+            min-height: 30px;
+            text-align: center;
+        }
+        
+        .column-day {
+            flex: 5%;
+            padding: 5px 25px 20px 25px;
+            min-height: 30px;
+            text-align: center;
+        }
+        
+        .cell {
+            display: block;
+            min-width: 100%;
+            max-width: 100%;
+            background-color: #ff789e;
+            text-align: center;
+            z-index: -10;
+        }
+        
+        .cellfull {
+            display: block;
+            min-width: 100%;
+            max-width: 100%;
+            background-color: #ff789e;
+            text-align: center;
+            z-index: -10;
+        }
+        
+        #uploadfile {
+            display: none;
+        }
+        
+        #uploadlabel {
+            display: block;
+            min-width: 100%;
+            min-height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+        }
+        
+        #submit_button {
+            background-color: #ff789e;
+            border: none;
+            min-width: 100%;
+            max-width: 100%;
+            text-align: center;
+        }
+        /*  Loading animation*/
+        
+        #loading_div {
+            display: none;
+        }
+        
+        .lds-ripple {
+            display: inline-block;
+            position: relative;
+            width: 150px;
+            height: 150px;
+        }
+        
+        .lds-ripple div {
+            position: absolute;
+            border: 4px solid #ff789e;
+            opacity: 1;
+            border-radius: 50%;
+            animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+        }
+        
+        .lds-ripple div:nth-child(2) {
+            animation-delay: -0.5s;
+        }
+        
+        @keyframes lds-ripple {
+            0% {
+                top: 74px;
+                left: 74px;
+                width: 0;
+                height: 0;
+                opacity: 1;
+            }
+            100% {
+                top: 0px;
+                left: 0px;
+                width: 148px;
+                height: 148px;
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h2>Photo Challenge</h2>
+        <a href="https://cdn.discordapp.com/attachments/353158688737067020/733245800536211487/bc947365c2acd58443ac164904739cf3.png" target="_blank">see promt here</a>
+    </header>
+    <div class="row">
+        <div class="column-day">
+            <p>Day</p>
+        </div>
+        <div class="column">
+            <p>Andreas</p>
+        </div>
+        <div class="column">
+            <p>Léa</p>
+        </div>
+        <div class="column">
+            <p>Martin</p>
+        </div>
+        <div class="column-day">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-day">
+            <p>1</p>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_0">
+            </div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_1"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_2"></div>
+        </div>
+        <div class="column-day">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-day">
+            <p>2</p>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_3">
+            </div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_4"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_5"></div>
+        </div>
+        <div class="column-day">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-day">
+            <p>3</p>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_6">
+            </div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_7"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_8"></div>
+        </div>
+        <div class="column-day">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-day">
+            <p>4</p>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_9">
+            </div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_10"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_11"></div>
+        </div>
+        <div class="column-day">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-day">
+            <p>5</p>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_12">
+            </div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_13"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_14"></div>
+        </div>
+        <div class="column-day">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-day">
+            <p>6</p>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_15">
+            </div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_16"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_17"></div>
+        </div>
+        <div class="column-day">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-day">
+            <p>7</p>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_18">
+            </div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_19"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_20"></div>
+        </div>
+        <div class="column-day">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-day">
+            <p>8</p>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_21">
+            </div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_22"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_23"></div>
+        </div>
+        <div class="column-day">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-day">
+            <p>9</p>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_24">
+            </div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_25"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_26"></div>
+        </div>
+        <div class="column-day">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-day">
+            <p>10</p>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_27">
+            </div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_28"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_29"></div>
+        </div>
+        <div class="column-day">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-day">
+            <p>11</p>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_30">
+            </div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_31"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_32"></div>
+        </div>
+        <div class="column-day">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-day">
+            <p>12</p>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_33">
+            </div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_34"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_35"></div>
+        </div>
+        <div class="column-day">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-day">
+            <p>13</p>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_36">
+            </div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_37"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_38"></div>
+        </div>
+        <div class="column-day">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-day">
+            <p>14</p>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_39">
+            </div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_40"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_41"></div>
+        </div>
+        <div class="column-day">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-day">
+            <p>15</p>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_42">
+            </div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_43"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_44"></div>
+        </div>
+        <div class="column-day">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-day">
+            <p>16</p>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_45">
+            </div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_46"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_47"></div>
+        </div>
+        <div class="column-day">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-day">
+            <p>17</p>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_48">
+            </div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_49"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_50"></div>
+        </div>
+        <div class="column-day">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-day">
+            <p>18</p>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_51">
+            </div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_52"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_53"></div>
+        </div>
+        <div class="column-day">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-day">
+            <p>19</p>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_54">
+            </div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_55"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_56"></div>
+        </div>
+        <div class="column-day">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-day">
+            <p>20</p>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_57">
+            </div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_58"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_59"></div>
+        </div>
+        <div class="column-day">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-day">
+            <p>21</p>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_60">
+            </div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_61"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_62"></div>
+        </div>
+        <div class="column-day">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-day">
+            <p>22</p>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_63">
+            </div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_64"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_65"></div>
+        </div>
+        <div class="column-day">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-day">
+            <p>23</p>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_66">
+            </div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_67"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_68"></div>
+        </div>
+        <div class="column-day">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-day">
+            <p>24</p>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_69">
+            </div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_70"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_71"></div>
+        </div>
+        <div class="column-day">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-day">
+            <p>25</p>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_72">
+            </div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_73"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_74"></div>
+        </div>
+        <div class="column-day">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-day">
+            <p>26</p>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_75">
+            </div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_76"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_77"></div>
+        </div>
+        <div class="column-day">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-day">
+            <p>27</p>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_78">
+            </div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_79"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_80"></div>
+        </div>
+        <div class="column-day">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-day">
+            <p>28</p>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_81">
+            </div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_82"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_83"></div>
+        </div>
+        <div class="column-day">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-day">
+            <p>29</p>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_84">
+            </div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_85"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_86"></div>
+        </div>
+        <div class="column-day">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-day">
+            <p>30</p>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_87">
+            </div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_88"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell_89"></div>
+        </div>
+        <div class="column-day">
+        </div>
+    </div>
+    <script src="animations.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            $.getJSON('https://cors-anywhere.herokuapp.com/https://drive.google.com/uc?id=10QwCdryEn7QOdTzUmyizHIKB3iacP4g7', (Iindex) => {
+                console.log('Ready to be seen');
+                Object.keys(Iindex).forEach(function(k) {
+                    var item = Iindex[k];
+                    console.log(item.cellid);
+                    $('#' + item.cellid).append('<img src="https://drive.google.com/uc?id=' + item.imageid + '" height="' + $('#' + item.cellid).width() + '" width="' + $('#' + item.cellid).width() + '"/>')
+                    $('#' + item.cellid).removeClass('cell');
+                    $('#' + item.cellid).addClass('cellfull');
+                });
+            });
+
+            var cellBool = false;
+            var cellSelectID = "";
+
+            $(".cell").click(function(event) {
+                if (event.target.className === 'cell') {
+                    if (!cellBool) {
+                        cellBool = true;
+                        cellSelectID = event.target.id;
+                        $(this).append("<form ref='uploadForm' id='uploadForm' action='/uploadphotochallenge' method='post' encType='multipart/form-data' onsubmit='playloading()'><input type='hidden' name='cellid' value='" + event.target.id + "'/><input type='file' name='sampleFile' id='uploadfile' onchange='readURL(this);' /><div id='loading_div'><div></div><div></div></div><label id='uploadlabel' for='uploadfile'><img id='previewimg' src='UI/locationmarker.png' width='100%' height='100%'></label><input id='submit_button' type='submit' value='Add' /></form>")
+
+                    } else {
+                        $('#' + cellSelectID).empty();
+                        cellSelectID = event.target.id;
+                        $(this).append("<form ref='uploadForm' id='uploadForm' action='/uploadphotochallenge' method='post' encType='multipart/form-data' onsubmit='playloading()'> <input type='file' name='sampleFile' id='uploadfile' onchange='readURL(this);' /><div id='loading_div'><div></div><div></div></div><label id='uploadlabel' for='uploadfile'><img id='previewimg' src='UI/locationmarker.png' width='100%' height='100%'></label><input id='submit_button' type='submit' value='Add' /></form>")
+
+                    }
+                }
+            });
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    document.getElementById('previewimg').src = e.target.result;
+                    //$('#previewimg').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+        }
+        var cw = $('.cell').width();
+        $('.cell').css({
+            'height': cw + 'px'
+        });
+    </script>
+</body>
+
+</html>

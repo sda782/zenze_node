@@ -95,6 +95,8 @@
         }
 
         #submit_button {
+            position: relative;
+            top: -2vw;
             background-color: #ff789e;
             border: none;
             min-width: 100%;
@@ -660,12 +662,12 @@
                     if (!cellBool) {
                         cellBool = true;
                         cellSelectID = event.target.id;
-                        $(this).append("<form ref='uploadForm' id='uploadForm' action='/uploadphotochallenge' method='post' encType='multipart/form-data' onsubmit='playloading()'><input type='hidden' name='cellid' value='" + event.target.id + "'/><input type='file' name='sampleFile' id='uploadfile' onchange='readURL(this);' /><div id='loading_div'><div></div><div></div></div><label id='uploadlabel' for='uploadfile'><img id='previewimg' src='UI/locationmarker.png' width='100%' height='100%'></label><input id='submit_button' type='submit' value='Add' /></form>")
+                        $(this).append("<form ref='uploadForm' id='uploadForm' action='/uploadphotochallenge' method='post' encType='multipart/form-data' ><input type='hidden' name='cellid' value='" + event.target.id + "'/><input type='file' name='sampleFile' id='uploadfile' onchange='readURL(this);' /><label id='uploadlabel' for='uploadfile'><img id='previewimg' src='UI/locationmarker.png' width='100%' height='100%'></label><input id='submit_button' type='submit' value='Add' /></form>")
 
                     } else {
                         $('#' + cellSelectID).empty();
                         cellSelectID = event.target.id;
-                        $(this).append("<form ref='uploadForm' id='uploadForm' action='/uploadphotochallenge' method='post' encType='multipart/form-data' onsubmit='playloading()'> <input type='file' name='sampleFile' id='uploadfile' onchange='readURL(this);' /><div id='loading_div'><div></div><div></div></div><label id='uploadlabel' for='uploadfile'><img id='previewimg' src='UI/locationmarker.png' width='100%' height='100%'></label><input id='submit_button' type='submit' value='Add' /></form>")
+                        $(this).append("<form ref='uploadForm' id='uploadForm' action='/uploadphotochallenge' method='post' encType='multipart/form-data' ><input type='hidden' name='cellid' value='" + event.target.id + "'/><input type='file' name='sampleFile' id='uploadfile' onchange='readURL(this);' /><label id='uploadlabel' for='uploadfile'><img id='previewimg' src='UI/locationmarker.png' width='100%' height='100%'></label><input id='submit_button' type='submit' value='Add' /></form>")
 
                     }
                 }

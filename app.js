@@ -85,14 +85,14 @@ app.use(cors());
 
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html', (err) => { });
+    res.sendFile(__dirname + '/index.html', (err) => {});
 });
 
 app.get('/photochallenge', (req, res) => {
-    res.sendFile(__dirname + '/photochallenge.html', (err) => { });
+    res.sendFile(__dirname + '/photochallenge.html', (err) => {});
 });
 
-app.post('/upload', function (req, res) {
+app.post('/upload', function(req, res) {
     if (!req.files || Object.keys(req.files).length === 0) {
         return res.status(400).send('No files were uploaded.');
     }
@@ -111,7 +111,7 @@ app.post('/upload', function (req, res) {
     };
     console.log(jsontemplate);
     // Use the mv() method to place the file somewhere on your server
-    sampleFile.mv(__dirname + '/images/' + sampleFile.name, function (err) {
+    sampleFile.mv(__dirname + '/images/' + sampleFile.name, function(err) {
         if (err) {
             return res.status(500).send(err);
         }
@@ -132,7 +132,7 @@ app.post('/upload', function (req, res) {
             resource: fileMetadata,
             media: media,
             fields: 'id'
-        }, function (err, file) {
+        }, function(err, file) {
             if (err) {
                 // Handle error
                 console.error(err);
@@ -140,7 +140,7 @@ app.post('/upload', function (req, res) {
                 console.log('File Id: ', file.data.id);
                 jsontemplate.id = file.data.id;
                 jsontemplate.imageurl = newimageurl + file.data.id;
-                request('https://drive.google.com/uc?id=1AYch2-Yf0OxRrL0SfCXhKLs9AXp7XZoR', function (error, response, body_) {
+                request('https://drive.google.com/uc?id=1AYch2-Yf0OxRrL0SfCXhKLs9AXp7XZoR', function(error, response, body_) {
                     console.error('error:', error);
                     var oldjson = JSON.parse(body_)
                     console.log('body:', oldjson);
@@ -184,7 +184,7 @@ app.post('/uploadphotochallenge', (req, res) => {
         "cellid": ""
     };
     // Use the mv() method to place the file somewhere on your server
-    sampleFile.mv(__dirname + '/photochallenge/' + sampleFile.name, function (err) {
+    sampleFile.mv(__dirname + '/photochallenge/' + sampleFile.name, function(err) {
         if (err) {
             return res.status(500).send(err);
         }
@@ -205,7 +205,7 @@ app.post('/uploadphotochallenge', (req, res) => {
             resource: fileMetadata,
             media: media,
             fields: 'id'
-        }, function (err, file) {
+        }, function(err, file) {
             if (err) {
                 // Handle error
                 console.error(err);
@@ -213,8 +213,8 @@ app.post('/uploadphotochallenge', (req, res) => {
                 console.log('File Id: ', file.data.id);
                 //  Update index file
                 jsontemplate.imageid = file.data.id;
-                jsontemplate.cellid  = req.body.cellid;
-                request('https://drive.google.com/uc?id=10QwCdryEn7QOdTzUmyizHIKB3iacP4g7', function (error, response, body_) {
+                jsontemplate.cellid = req.body.cellid;
+                request('https://drive.google.com/uc?id=10QwCdryEn7QOdTzUmyizHIKB3iacP4g7', function(error, response, body_) {
                     console.error('error:', error);
                     console.log(error);
                     var oldjson = JSON.parse(body_)
@@ -241,7 +241,7 @@ app.post('/uploadphotochallenge', (req, res) => {
                         }
                     });
                 });
-                res.redirect('/photochallenge');
+                res.redirect('back');
             }
         });
     });

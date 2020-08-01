@@ -136,8 +136,10 @@
         $(document).ready(function() {
             for (let index = 0; index < 30; index++) {
                 $('#photogrid').append('<div class="row"><div class="column-day"><p>' + (index + 1) + '</p></div><div class="column"><div class="cell" id="cell_' + (3 * index) + '"></div></div><div class="column"><div class="cell" id="cell_' + (3 * index + 1) + '"></div></div><div class="column"><div class="cell" id="cell_' + (3 * index + 2) + '"></div></div><div class="column-day"></div></div>');
+
             }
-            $.getJSON('https://drive.google.com/uc?id=10QwCdryEn7QOdTzUmyizHIKB3iacP4g7', (Iindex) => {
+            updatecellstyle();
+            $.getJSON('http://allow-any-origin.appspot.com/https://drive.google.com/uc?id=10QwCdryEn7QOdTzUmyizHIKB3iacP4g7', (Iindex) => {
                 Object.keys(Iindex).forEach(function(k) {
                     var item = Iindex[k];
                     $('#' + item.cellid).append('<img class="cellimage" src="https://drive.google.com/thumbnail?authuser=0&sz=w320&id=' + item.imageid + '" height="' + $('#' + item.cellid).width() + '"/>')
@@ -169,12 +171,9 @@
             });
         });
 
-        var cw = $('.cell').width();
-        $('.cell').css({
-            'height': cw + 'px'
-        });
+        $(window).resize(updatecellstyle());
 
-        $(window).resize(function() {
+        function updatecellstyle() {
             console.log("Help i'm being resized");
             var cw = $('.cell').width();
             $('.cell').css({
@@ -186,7 +185,7 @@
             $('.cellimage').css({
                 'height': cw + 'px'
             });
-        });
+        }
 
         function readURL(input) {
             if (input.files && input.files[0]) {

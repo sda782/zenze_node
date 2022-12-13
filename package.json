@@ -6,7 +6,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dropbox-v2-api": "^2.4.17",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-fileupload": "^1.1.7-alpha.3",
     "googleapis": "^52.1.0",
     "request": "^2.88.2"
